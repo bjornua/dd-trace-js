@@ -161,22 +161,19 @@ describe('FlaggingProvider Initialization Timeout', () => {
   })
 
   for (const configuration of [undefined, null]) {
-    it(`does not log configuration availability for a ${configuration} update`, async () => {
+    it(`keeps waiting for configuration after a ${configuration} update`, async () => {
       const provider = new FlaggingProvider(mockTracer, mockConfig)
       const promise = provider.initialize()
       log.debug.resetHistory()
 
+      // The upstream provider leaves initialization pending when configuration is removed.
       provider.setConfiguration(configuration)
-      // Upstream 2.4.0 settles initialization even for configuration removal.
-      await promise
-
-      assert.strictEqual(provider.getConfiguration(), configuration)
       sinon.assert.notCalled(log.debug)
 
-      await clock.tickAsync(30000)
       provider.setConfiguration({ flags: {} })
+      await promise
+      sinon.assert.calledOnceWithExactly(log.debug, 'Feature Flags: initial configuration available')
       sinon.assert.notCalled(log.errorWithoutTelemetry)
-      sinon.assert.notCalled(log.debug)
     })
   }
 

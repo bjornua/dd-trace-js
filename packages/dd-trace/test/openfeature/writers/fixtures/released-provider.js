@@ -106,19 +106,23 @@ async function main () {
       Object.defineProperty(selected, 'observeFullEvaluationData', {
         get () { consentReads++; return options.consent },
       })
-      Object.defineProperty(selected.flags, 'flag', {
-        get () {
-          clock.setSystemTime(now + 500)
-          provider.setConfiguration(replacement)
-          if (options.path === 'swap-error') throw new Error('released-error-canary')
-          return flag
-        },
-      })
     }
     if (options.path === 'not-ready') {
       OpenFeature.setProvider('released-provider', provider)
     } else {
       provider.setConfiguration(selected)
+      if (options.swap) {
+        // The provider eagerly reads the received configuration, so install the
+        // swapping getter after receipt: it fires during the first evaluation.
+        Object.defineProperty(selected.flags, 'flag', {
+          get () {
+            clock.setSystemTime(now + 500)
+            provider.setConfiguration(replacement)
+            if (options.path === 'swap-error') throw new Error('released-error-canary')
+            return flag
+          },
+        })
+      }
       await OpenFeature.setProviderAndWait('released-provider', provider)
       if (options.path === 'no-config') provider.setConfiguration(undefined)
       if (options.path === 'fatal') provider.events.emit(ProviderEvents.Error, { errorCode: 'PROVIDER_FATAL' })

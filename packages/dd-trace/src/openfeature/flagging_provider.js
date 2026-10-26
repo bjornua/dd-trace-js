@@ -103,8 +103,9 @@ class FlaggingProvider extends DatadogNodeServerProvider {
   setConfiguration (configuration) {
     const wasWaiting = this.#waitingForConfiguration
     super.setConfiguration(configuration)
+    if (configuration == null) return
     this.#waitingForConfiguration = false
-    if (wasWaiting && configuration != null) this.#logInitialConfiguration()
+    if (wasWaiting) this.#logInitialConfiguration()
   }
 
   /**
