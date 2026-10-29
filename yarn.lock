@@ -273,9 +273,9 @@
     hashery "^1.5.1"
     keyv "^5.6.0"
 
-"@datadog/flagging-core@3.3.0", "@datadog/flagging-core@file:vendor/packages/datadog-flagging-core-3.3.0.tgz":
-  version "3.3.0"
-  resolved "file:vendor/packages/datadog-flagging-core-3.3.0.tgz#3456e92cebe9118c9b477b94db3175e1df5339a0"
+"@datadog/flagging-core@3.4.0", "@datadog/flagging-core@file:vendor/packages/datadog-flagging-core-3.4.0.tgz":
+  version "3.4.0"
+  resolved "file:vendor/packages/datadog-flagging-core-3.4.0.tgz#eae9ac0587c39b5c9eed2d8eaa44b22e91e97d07"
   dependencies:
     "@bufbuild/protobuf" "^2.13.0"
     spark-md5 "^3.0.2"
@@ -319,11 +319,11 @@
     node-addon-api "^6.1.0"
     node-gyp-build "^3.9.0"
 
-"@datadog/openfeature-node-server@file:vendor/packages/datadog-openfeature-node-server-2.6.0.tgz":
-  version "2.6.0"
-  resolved "file:vendor/packages/datadog-openfeature-node-server-2.6.0.tgz#9b3495d353ee61d5a41fe055b1667191f4436e0f"
+"@datadog/openfeature-node-server@file:vendor/packages/datadog-openfeature-node-server-2.7.0.tgz":
+  version "2.7.0"
+  resolved "file:vendor/packages/datadog-openfeature-node-server-2.7.0.tgz#695800621d9e8d9b39d5915d65e67af8dbc04813"
   dependencies:
-    "@datadog/flagging-core" "3.3.0"
+    "@datadog/flagging-core" "3.4.0"
 
 "@datadog/pprof@5.20.0":
   version "5.20.0"
